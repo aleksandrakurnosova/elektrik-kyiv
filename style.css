@@ -1003,6 +1003,10 @@ svg {
 .lightbox figure {
   max-width: min(1120px, 90vw);
   margin: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 .lightbox figure img {
   display: block;
