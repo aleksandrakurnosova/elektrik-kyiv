@@ -1340,9 +1340,9 @@ footer > span {
   .desktop-nav {
     display: none;
   }
-  .header-phone span:first-child {
+  /* .header-phone span:first-child {
     display: none;
-  }
+  } */
   .hero {
     min-height: auto;
     padding-top: 125px;

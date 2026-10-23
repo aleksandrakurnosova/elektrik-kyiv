@@ -1,0 +1,30 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"main": ".open-next/worker.js",
+	"name": "elektrik-kyiv",
+	"compatibility_date": "2026-10-01",
+	"compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+	"assets": {
+		"directory": ".open-next/assets",
+		"binding": "ASSETS"
+	},
+	"images": {
+		// Оптимізація next/image через Cloudflare Images
+		"binding": "IMAGES"
+	},
+	"ratelimits": [
+		{
+			// Ліміт заявок /api/contact на IP: спільний для всіх ізолятів Workers,
+			// на відміну від пам'яті процесу.
+			"name": "CONTACT_RATE_LIMITER",
+			"namespace_id": "1001",
+			"simple": { "limit": 3, "period": 60 }
+		}
+	],
+	"vars": {
+		"CONTACT_TO_EMAIL": "elektrik.service.ua@gmail.com"
+	},
+	"observability": {
+		"enabled": true
+	}
+}

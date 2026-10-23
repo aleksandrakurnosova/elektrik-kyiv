@@ -1,0 +1,9 @@
+node_modules/
+.next/
+.env*.local
+.env
+.open-next/
+.wrangler/
+.dev.vars*
+cloudflare-env.d.ts
+media-source/
