@@ -1,6 +1,6 @@
 import { getCloudflareContext } from "@opennextjs/cloudflare";
 import { Resend } from "resend";
-import { EMAIL } from "../../../lib/site";
+import { EMAIL, SITE_URL } from "../../../lib/site";
 import { formatUaPhone, LIMITS, toE164, validateContact } from "../../../lib/contact";
 
 const TO_EMAIL = process.env.CONTACT_TO_EMAIL || EMAIL;
@@ -13,6 +13,15 @@ const MAX_BODY_BYTES = 10_000;
 const TURNSTILE_ACTION = "contact";
 const SITEVERIFY_URL = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
 const TURNSTILE_FAILED = "Не вдалося підтвердити, що ви не робот.";
+const MAX_TOKEN_LENGTH = 2048;
+const SITEVERIFY_TIMEOUT_MS = 10_000;
+
+// Токен дійсний лише для форми на цих доменах (localhost сюди не додаємо).
+const siteHost = new URL(SITE_URL).hostname.replace(/^www\./, "");
+const ALLOWED_HOSTNAMES = (process.env.TURNSTILE_ALLOWED_HOSTNAMES || `${siteHost},www.${siteHost}`)
+  .split(",")
+  .map((host) => host.trim())
+  .filter(Boolean);
 
 function escapeHtml(value) {
   return value
@@ -62,18 +71,20 @@ async function verifyTurnstile(token, ip) {
     console.error("[contact] TURNSTILE_SECRET_KEY is not set");
     return { ok: false, status: 500, error: "Сервіс тимчасово недоступний." };
   }
-  if (!token) {
+  if (!token || token.length > MAX_TOKEN_LENGTH) {
     return { ok: false, status: 403, error: "Не вдалося пройти перевірку безпеки." };
   }
 
   let outcome;
   try {
-    const form = new FormData();
-    form.append("secret", secret);
-    form.append("response", token);
+    const form = new URLSearchParams({ secret, response: token });
     if (ip !== "unknown") form.append("remoteip", ip);
-    form.append("idempotency_key", crypto.randomUUID());
-    const response = await fetch(SITEVERIFY_URL, { method: "POST", body: form });
+    const response = await fetch(SITEVERIFY_URL, {
+      method: "POST",
+      body: form,
+      signal: AbortSignal.timeout(SITEVERIFY_TIMEOUT_MS),
+    });
+    if (!response.ok) throw new Error(`Siteverify HTTP ${response.status}`);
     outcome = await response.json();
   } catch (error) {
     console.error("[contact] Siteverify request failed:", error);
@@ -90,8 +101,13 @@ async function verifyTurnstile(token, ip) {
       error: expired ? "Перевірка безпеки застаріла." : TURNSTILE_FAILED,
     };
   }
-  if (outcome.action && outcome.action !== TURNSTILE_ACTION) {
-    return { ok: false, status: 403, error: TURNSTILE_FAILED };
+  // Тестові ключі Cloudflare не повертають реальних action/hostname — їх пропускаємо.
+  // На продакшні секрет справжній, тож ця гілка там недосяжна.
+  if (!outcome.metadata?.result_with_testing_key) {
+    if (outcome.action !== TURNSTILE_ACTION || !ALLOWED_HOSTNAMES.includes(outcome.hostname)) {
+      console.warn("[contact] Turnstile mismatch:", outcome.action, outcome.hostname);
+      return { ok: false, status: 403, error: TURNSTILE_FAILED };
+    }
   }
   return { ok: true };
 }
@@ -146,7 +162,7 @@ export async function POST(request) {
   }
 
   // Токен перевіряємо до будь-якої відправки листа.
-  const turnstile = await verifyTurnstile(clean(body?.turnstileToken, 2048), ip);
+  const turnstile = await verifyTurnstile(clean(body?.turnstileToken, MAX_TOKEN_LENGTH + 1), ip);
   if (!turnstile.ok) {
     return json({ success: false, error: turnstile.error, code: "turnstile" }, turnstile.status);
   }
