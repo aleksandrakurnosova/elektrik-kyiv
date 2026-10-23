@@ -132,8 +132,14 @@ export async function POST(request) {
   }
 
   // Honeypot і перевірка часу: боту відповідаємо «успіхом», щоб не підказувати.
+  // У лог пишемо причину — інакше «тиха» відмова справжньому клієнту непомітна.
   const elapsed = Number(body?.elapsed);
-  if (clean(body?.company, 200) || !Number.isFinite(elapsed) || elapsed < MIN_FILL_MS) {
+  if (clean(body?.hp_check, 200)) {
+    console.warn("[contact] Honeypot filled, request dropped");
+    return json({ success: true });
+  }
+  if (!Number.isFinite(elapsed) || elapsed < MIN_FILL_MS) {
+    console.warn("[contact] Submitted too fast, request dropped:", elapsed);
     return json({ success: true });
   }
 
@@ -173,11 +179,12 @@ export async function POST(request) {
   }
 
   const phone = formatUaPhone(data.phone);
+  const message = data.message || "— (не вказано)";
   const sentAt = new Date().toLocaleString("uk-UA", { timeZone: "Europe/Kyiv" });
   const safe = {
     name: escapeHtml(data.name),
     phone: escapeHtml(phone),
-    message: escapeHtml(data.message).replace(/\n/g, "<br>"),
+    message: escapeHtml(message).replace(/\n/g, "<br>"),
   };
 
   try {
@@ -193,7 +200,7 @@ export async function POST(request) {
         <p><strong>Що потрібно зробити:</strong><br>${safe.message}</p>
         <p style="color:#777">Надіслано: ${sentAt} (Київ)</p>
       `,
-      text: `Нова заявка з сайту\nІм'я: ${data.name}\nТелефон: ${phone}\nЩо потрібно зробити: ${data.message}\nНадіслано: ${sentAt} (Київ)`,
+      text: `Нова заявка з сайту\nІм'я: ${data.name}\nТелефон: ${phone}\nЩо потрібно зробити: ${message}\nНадіслано: ${sentAt} (Київ)`,
     });
 
     if (error) {

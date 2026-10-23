@@ -121,7 +121,7 @@ export default function Contact() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...data,
-          company: formData.get("company"),
+          hp_check: formData.get("hp_check"),
           elapsed: Date.now() - startedAt.current,
           turnstileToken,
         }),
@@ -241,26 +241,26 @@ export default function Contact() {
           )}
         </label>
         <label>
-          Що потрібно зробити?
+          Що потрібно зробити? (необов’язково)
           <textarea
-            aria-describedby={errors.message ? "contact-message-error" : undefined}
-            aria-invalid={Boolean(errors.message)}
             maxLength={LIMITS.message}
             name="message"
-            onInput={clearFieldError}
             placeholder="Напр.: підключити генератор або EcoFlow до щита"
-            required
             rows="3"
           ></textarea>
-          {errors.message && (
-            <span className="field-error" id="contact-message-error">
-              {errors.message}
-            </span>
-          )}
         </label>
+        {/* Пастка для ботів. Назва без змісту, щоб автозаповнення браузера
+            і менеджери паролів її не заповнювали. */}
         <label aria-hidden="true" className="form-trap">
-          Компанія
-          <input autoComplete="off" name="company" tabIndex={-1} type="text" />
+          Не заповнюйте це поле
+          <input
+            autoComplete="off"
+            data-1p-ignore="true"
+            data-lpignore="true"
+            name="hp_check"
+            tabIndex={-1}
+            type="text"
+          />
         </label>
         <Turnstile action="contact" ref={turnstileRef} siteKey={TURNSTILE_SITE_KEY} />
         <button className="button button-primary" disabled={isLoading} type="submit">
