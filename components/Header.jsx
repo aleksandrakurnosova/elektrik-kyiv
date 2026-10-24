@@ -1,18 +1,10 @@
+import BrandLogo from "./BrandLogo";
 import { PHONE_DISPLAY, PHONE_HREF } from "../lib/site";
 
 export default function Header() {
   return (
     <header className="site-header">
-     <a aria-label="Вольт — на головну" className="brand" href="#top">
-      <span className="brand-mark">
-       <span>
-        ϟ
-       </span>
-      </span>
-      <span className="brand-name">
-       ВОЛЬТ
-      </span>
-     </a>
+     <BrandLogo ariaLabel="Електрик Максим — на головну" />
      <nav aria-label="Головна навігація" className="desktop-nav">
       <a href="#services">
        Послуги

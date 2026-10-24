@@ -1,3 +1,28 @@
+/* ==========================================================================
+   Електрик Максим — єдиний файл стилів сайту.
+
+   1. Токени та базові стилі
+   2. Спільні елементи: секції, заголовки, кнопки
+   3. Шапка та логотип
+   4. Hero
+   5. Смуга переваг (SignalBar)
+   6. Послуги (Services)
+   7. Резервне живлення (BackupPower)
+   8. Переваги (Benefits)
+   9. Типи об'єктів (ObjectStrip)
+   10. Етапи роботи (Process)
+   11. Галерея та лайтбокс (Gallery, Lightbox)
+   12. Блок безпеки (SafetyCallout)
+   13. FAQ
+   14. Контакти та форма (Contact, Turnstile)
+   15. Футер
+   16. Кнопка «нагору» (BackToTop)
+   17. Адаптивність (від широких екранів до вузьких)
+   18. Зменшення анімацій
+   ========================================================================== */
+
+/* 1. Токени та базові стилі
+   ========================================================================== */
 :root {
   --ink: #131613;
   --muted: #646962;
@@ -38,6 +63,123 @@ svg {
   display: block;
 }
 
+/* 2. Спільні елементи: секції, заголовки, кнопки
+   ========================================================================== */
+.section {
+  padding: 110px clamp(24px, 7vw, 110px);
+}
+.services,
+.backup,
+.process {
+  background: var(--paper);
+}
+.section-kicker {
+  display: block;
+  margin-bottom: 20px;
+  color: #71766f;
+  font-size: 13px;
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+.section-heading {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  align-items: end;
+  gap: 70px;
+  margin-bottom: 56px;
+}
+.section-heading h2 {
+  margin: 0;
+  font-size: clamp(42px, 4.2vw, 64px);
+  line-height: 1;
+  letter-spacing: 0.025em;
+  font-weight: 600;
+}
+.section-heading > p {
+  margin: 0 0 5px;
+  max-width: 430px;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.7;
+}
+/* Заголовки секцій на темному тлі */
+.benefit-copy h2,
+.faq-intro h2,
+.contact-copy h2 {
+  margin: 0;
+  font-size: clamp(40px, 4vw, 61px);
+  line-height: 1.03;
+  letter-spacing: -0.025em;
+  font-weight: 600;
+}
+/* Акцентне слово в заголовках: салатове на темному тлі, оливкове на світлому */
+.hero h1 em,
+.section-heading h2 em,
+.benefit-copy h2 em,
+.faq-intro h2 em,
+.contact-copy h2 em {
+  font-family: inherit;
+  font-style: normal;
+  font-weight: 400;
+  color: var(--accent);
+}
+.section-heading h2 em,
+.faq-intro h2 em {
+  color: #778143;
+}
+
+.button {
+  min-height: 54px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  padding: 0 24px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 650;
+  transition:
+    transform 0.2s,
+    background 0.2s;
+}
+.button:hover {
+  transform: translateY(-2px);
+}
+.button svg,
+.text-link svg {
+  width: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+}
+.button-primary {
+  color: #151815;
+  background: var(--accent);
+}
+.button-primary:hover {
+  background: #e4ff78;
+}
+.button-ghost {
+  border: 1px solid #3b403a;
+  color: white;
+}
+.button-ghost:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+.text-link {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 35px;
+  padding-bottom: 7px;
+  font-size: 13px;
+  font-weight: 800;
+  border-bottom: 1px solid #aeb1a8;
+}
+
+/* 3. Шапка та логотип
+   ========================================================================== */
 .site-header {
   height: 82px;
   padding: 0 clamp(24px, 5vw, 76px);
@@ -62,19 +204,27 @@ svg {
   place-items: center;
   background: var(--accent);
   color: var(--ink);
+  flex: none;
   border-radius: 9px;
   box-shadow: 0 0 28px rgba(217, 255, 67, 0.18);
   transform: rotate(4deg);
 }
-.brand-mark span {
-  font-size: 25px;
-  font-weight: 900;
+.brand-mark svg {
+  width: 24px;
+  height: 24px;
   transform: rotate(-4deg);
 }
 .brand-name {
-  font-size: 18px;
+  /* display: flex; */
+  display:none;
+  gap: 0.42em;
+  font-family: var(--font-heading), "Segoe UI", Arial, sans-serif;
+  font-size: 16px;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  line-height: 1;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 .desktop-nav {
   display: flex;
@@ -101,14 +251,8 @@ svg {
   box-shadow: 0 0 0 5px rgba(217, 255, 67, 0.12);
 }
 
-/* .phone-dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 0 5px rgba(217, 255, 67, 0.12);
-} */
-
+/* 4. Hero
+   ========================================================================== */
 .hero {
   min-height: 760px;
   background: #101310;
@@ -174,13 +318,6 @@ svg {
   letter-spacing: -0.03em;
   font-weight: 650;
 }
-.hero h1 em,
-.section-heading h2 em {
-  font-family: inherit;
-  font-style: normal;
-  font-weight: 400;
-  color: var(--accent);
-}
 .hero-copy > p {
   max-width: 570px;
   margin: 30px 0 0;
@@ -193,48 +330,14 @@ svg {
   gap: 12px;
   margin-top: 35px;
 }
-.button {
-  min-height: 54px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 30px;
-  padding: 0 24px;
-  border-radius: 4px;
-  font-size: 14px;
-  font-weight: 650;
-  transition:
-    transform 0.2s,
-    background 0.2s;
-}
-.button:hover {
-  transform: translateY(-2px);
-}
-.button svg,
-.service-card > a svg {
-  width: 18px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.8;
-}
-.button-primary {
-  color: #151815;
-  background: var(--accent);
-}
-.button-primary:hover {
-  background: #e4ff78;
-}
-.button-ghost {
-  border: 1px solid #3b403a;
-  color: white;
-}
-.button-ghost:hover {
-  background: rgba(255, 255, 255, 0.06);
-}
+
+/* Аватари та два рівнозначні показники; на вузьких екранах показники
+   переносяться під аватари */
 .hero-trust {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 14px;
+  gap: 16px 14px;
   margin-top: 54px;
 }
 .avatar-stack {
@@ -250,7 +353,7 @@ svg {
   margin-left: -8px;
   background: #343a33;
   color: #e9ece5;
-  font-size: 10px;
+  font-size: 12px;
 }
 .avatar-stack span:first-child {
   margin-left: 0;
@@ -260,17 +363,27 @@ svg {
   background: var(--accent);
   color: #20241e;
 }
+.hero-stats {
+  display: flex;
+  align-items: center;
+}
 .hero-trust p {
   margin: 0;
   color: #90958e;
-  font-size: 11px;
+  font-size: 13px;
   line-height: 1.45;
 }
 .hero-trust strong {
   color: white;
-  font-size: 12px;
+  font-size: 15px;
+}
+.hero-stats p + p {
+  margin-left: 20px;
+  padding-left: 20px;
+  border-left: 1px solid rgba(255, 255, 255, 0.14);
 }
 
+/* Декоративна візуалізація електросистеми праворуч */
 .power-visual {
   width: min(540px, 42vw);
   height: min(540px, 42vw);
@@ -400,13 +513,13 @@ svg {
 .status-card small {
   display: block;
   color: #8c9388;
-  font-size: 8px;
-  letter-spacing: 0.16em;
+  font-size: 12px;
+  letter-spacing: 0.12em;
   margin-bottom: 4px;
 }
 .status-card strong {
   display: block;
-  font-size: 11px;
+  font-size: 15px;
 }
 .status-icon {
   width: 29px;
@@ -475,6 +588,8 @@ svg {
   bottom: 15%;
 }
 
+/* 5. Смуга переваг (SignalBar)
+   ========================================================================== */
 .signal-bar {
   min-height: 78px;
   padding: 0 clamp(24px, 7vw, 110px);
@@ -495,55 +610,19 @@ svg {
   gap: 14px;
 }
 .signal-bar span {
-  font: 10px monospace;
+  font: 12px monospace;
   opacity: 0.54;
 }
-.section {
-  padding: 110px clamp(24px, 7vw, 110px);
-}
-.services {
-  background: var(--paper);
-}
-.section-heading {
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  align-items: end;
-  gap: 70px;
-  margin-bottom: 56px;
-}
-.section-kicker {
-  display: block;
-  margin-bottom: 20px;
-  color: #71766f;
-  font-size: 11px;
-  font-weight: 650;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-}
-.section-heading h2 {
-  margin: 0;
-  font-size: clamp(42px, 4.2vw, 64px);
-  line-height: 1;
-  letter-spacing: 0.025em;
-  font-weight: 600;
-}
-.section-heading h2 em {
-  color: #778143;
-}
-.section-heading > p {
-  margin: 0 0 5px;
-  max-width: 430px;
-  color: var(--muted);
-  font-size: 16px;
-  line-height: 1.7;
-}
+
+/* 6. Послуги (Services)
+   ========================================================================== */
 .services-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   border: 1px solid var(--line);
 }
 .service-card {
-  cursor:pointer;
+  cursor: pointer;
   min-height: 410px;
   padding: 28px;
   border-right: 1px solid var(--line);
@@ -570,6 +649,7 @@ svg {
   align-items: flex-start;
   justify-content: space-between;
 }
+/* Кругла іконка; також використовується в картках резервного живлення */
 .service-icon {
   width: 50px;
   height: 50px;
@@ -588,7 +668,7 @@ svg {
 }
 .service-number {
   color: #91968e;
-  font: 10px monospace;
+  font: 12px monospace;
 }
 .service-card h3 {
   margin: 39px 0 15px;
@@ -596,12 +676,7 @@ svg {
   line-height: 1.18;
   font-weight: 600;
 }
-.service-card-arrow {
-  margin: 0;
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.7;
-}
+/* Теги; також використовуються в картках резервного живлення */
 .service-tags {
   display: flex;
   flex-wrap: wrap;
@@ -613,25 +688,84 @@ svg {
   border-radius: 3px;
   background: #e8e9e3;
   color: #73786f;
-  font-size: 9px;
+  font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
 }
 .service-card-arrow {
-  margin-top: auto;
+  margin: auto 0 0;
   padding-top: 24px;
   border-top: 1px solid var(--line);
   display: flex;
   align-items: center;
   justify-content: space-between;
+  color: var(--muted);
   font-size: 12px;
   font-weight: 650;
+  line-height: 1.7;
 }
 .service-card-arrow svg {
   width: 16px;
 }
 
+/* 7. Резервне живлення (BackupPower)
+   ========================================================================== */
+.backup-grid {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 14px;
+}
+.backup-card {
+  grid-column: span 2;
+  padding: 28px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.45);
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  transition:
+    background 0.25s,
+    transform 0.25s,
+    box-shadow 0.25s;
+}
+.backup-card:nth-child(-n + 2) {
+  grid-column: span 3;
+}
+.backup-card:hover {
+  background: white;
+  transform: translateY(-4px);
+  box-shadow: 0 20px 50px rgba(28, 32, 26, 0.08);
+}
+.backup-icon {
+  flex: none;
+  transition: background 0.25s;
+}
+.backup-card:hover .backup-icon {
+  background: var(--accent);
+}
+.backup-body h3 {
+  margin: 0 0 12px;
+  font-size: 20px;
+  line-height: 1.2;
+  font-weight: 600;
+}
+.backup-body p {
+  margin: 0;
+  max-width: 460px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+.backup-body .service-tags {
+  margin-top: 18px;
+}
+
+/* 8. Переваги (Benefits)
+   ========================================================================== */
 .benefits {
   background: #181c18;
   color: white;
@@ -640,6 +774,8 @@ svg {
   gap: clamp(60px, 8vw, 130px);
   align-items: center;
 }
+
+/* Декоративне «креслення» ліворуч */
 .benefit-visual {
   min-height: 590px;
   position: relative;
@@ -751,11 +887,11 @@ svg {
 }
 .plan-stamp small {
   color: #838a80;
-  font-size: 8px;
-  letter-spacing: 0.15em;
+  font-size: 12px;
+  letter-spacing: 0.12em;
 }
 .plan-stamp strong {
-  font-size: 10px;
+  font-size: 14px;
 }
 .plan-code {
   position: absolute;
@@ -771,25 +907,10 @@ svg {
   right: 8%;
   top: 46%;
 }
+
+/* Текстова колонка */
 .benefit-copy .section-kicker {
   color: #969c93;
-}
-.benefit-copy h2,
-.faq-intro h2,
-.contact-copy h2 {
-  margin: 0;
-  font-size: clamp(40px, 4vw, 61px);
-  line-height: 1.03;
-  letter-spacing: -0.025em;
-  font-weight: 600;
-}
-.benefit-copy h2 em,
-.faq-intro h2 em,
-.contact-copy h2 em {
-  font-family: inherit;
-  font-style: normal;
-  color: var(--accent);
-  font-weight: 400;
 }
 .benefit-lead {
   margin: 27px 0 33px;
@@ -810,7 +931,7 @@ svg {
 }
 .benefit-list article > span {
   color: var(--accent);
-  font: 10px monospace;
+  font: 12px monospace;
   padding-top: 4px;
 }
 .benefit-list h3 {
@@ -820,10 +941,12 @@ svg {
 .benefit-list p {
   margin: 0;
   color: #888f86;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.6;
 }
 
+/* 9. Типи об'єктів (ObjectStrip)
+   ========================================================================== */
 .object-strip {
   padding: 60px clamp(24px, 7vw, 110px) 70px;
   background: #181c18;
@@ -853,36 +976,18 @@ svg {
 }
 .object-types span {
   color: #858b82;
-  font-size: 11px;
+  font-size: 14px;
+  line-height: 1.45;
 }
 
-.process {
-  background: var(--paper);
-}
-.process-heading {
-  align-items: end;
-}
-.text-link {
-  justify-self: end;
-  display: flex;
-  align-items: center;
-  gap: 35px;
-  padding-bottom: 7px;
-  font-size: 13px;
-  font-weight: 800;
-  border-bottom: 1px solid #aeb1a8;
-}
-.text-link svg {
-  width: 18px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.8;
-}
+/* 10. Етапи роботи (Process)
+   ========================================================================== */
 .process-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   position: relative;
 }
+/* Лінія, що з'єднує номери етапів */
 .process-grid::before {
   content: "";
   position: absolute;
@@ -907,7 +1012,7 @@ svg {
   border: 1px solid #aeb2a9;
   border-radius: 50%;
   color: #666b64;
-  font: 10px monospace;
+  font: 13px monospace;
 }
 .process-grid article:last-child > span {
   background: var(--accent);
@@ -921,75 +1026,19 @@ svg {
 .process-grid p {
   margin: 0;
   color: var(--muted);
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.7;
   max-width: 230px;
 }
 
-.backup {
-  background: var(--paper);
-}
-.backup-grid {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 14px;
-}
-.backup-card {
-  grid-column: span 2;
-  padding: 28px;
-  border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.45);
-  display: flex;
-  flex-direction: column;
-  gap: 26px;
-  transition:
-    background 0.25s,
-    transform 0.25s,
-    box-shadow 0.25s;
-}
-.backup-card:nth-child(-n + 2) {
-  grid-column: span 3;
-}
-.backup-card:hover {
-  background: white;
-  transform: translateY(-4px);
-  box-shadow: 0 20px 50px rgba(28, 32, 26, 0.08);
-}
-.backup-icon {
-  flex: none;
-  transition: background 0.25s;
-}
-.backup-card:hover .backup-icon {
-  background: var(--accent);
-}
-.backup-body h3 {
-  margin: 0 0 12px;
-  font-size: 20px;
-  line-height: 1.2;
-  font-weight: 600;
-}
-.backup-body p {
-  margin: 0;
-  max-width: 460px;
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.7;
-}
-.backup-body .service-tags {
-  margin-top: 18px;
-}
+/* 11. Галерея та лайтбокс (Gallery, Lightbox)
+   ========================================================================== */
 .gallery {
   background: #e9e8e1;
   border-top: 1px solid var(--line);
 }
 .gallery-heading {
   margin-bottom: 42px;
-}
-.gallery-heading h2 em {
-  color: #778143;
 }
 .gallery-grid {
   display: grid;
@@ -1057,8 +1106,10 @@ svg {
 }
 .gallery-item small {
   color: var(--accent);
-  font: 9px monospace;
+  font: 12px monospace;
 }
+
+/* Клас на <body>, поки відкритий лайтбокс */
 .lightbox-open {
   overflow: hidden;
 }
@@ -1079,6 +1130,20 @@ svg {
   display: flex;
   justify-content: center;
   flex-direction: column;
+}
+/* --lightbox-dir (-1 / 1) задає Lightbox.jsx: напрямок появи нового кадру */
+.lightbox-figure {
+  animation: lightbox-in 0.32s ease both;
+}
+@keyframes lightbox-in {
+  from {
+    opacity: 0;
+    transform: translateX(calc(var(--lightbox-dir, 0) * 36px));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 .lightbox figure video {
   display: block;
@@ -1102,6 +1167,381 @@ svg {
   font-size: 13px;
   text-align: center;
 }
+.lightbox-nav {
+  position: fixed;
+  top: 50%;
+  z-index: 2;
+  width: 52px;
+  height: 52px;
+  margin-top: -26px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #4b5149;
+  border-radius: 50%;
+  background: rgba(26, 30, 26, 0.85);
+  color: white;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    color 0.2s;
+}
+.lightbox-nav:hover,
+.lightbox-nav:focus-visible {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--ink);
+  outline: 0;
+}
+.lightbox-nav svg {
+  width: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.lightbox-prev {
+  left: 24px;
+}
+.lightbox-next {
+  right: 24px;
+}
+.lightbox-counter {
+  position: fixed;
+  top: 28px;
+  left: 24px;
+  color: #c9cdc5;
+  font: 13px monospace;
+  letter-spacing: 0.14em;
+}
+.lightbox-counter strong {
+  color: var(--accent);
+  font-weight: 400;
+}
+.lightbox-close {
+  position: fixed;
+  top: 18px;
+  right: 24px;
+  width: 42px;
+  height: 42px;
+  border: 1px solid #4b5149;
+  border-radius: 50%;
+  background: #1a1e1a;
+  color: white;
+  font: 300 28px/1 sans-serif;
+  cursor: pointer;
+}
+
+/* 12. Блок безпеки (SafetyCallout; зараз не рендериться, див. app/page.jsx)
+   ========================================================================== */
+.safety-callout {
+  margin: 0 clamp(24px, 7vw, 110px) 110px;
+  min-height: 210px;
+  padding: 42px 52px;
+  background: #101310;
+  color: white;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 36px;
+  position: relative;
+  overflow: hidden;
+}
+.safety-callout::after {
+  content: "";
+  position: absolute;
+  width: 330px;
+  height: 330px;
+  left: 35%;
+  top: -180px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(217, 255, 67, 0.15),
+    transparent 65%
+  );
+}
+.safety-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 22px;
+  transform: rotate(45deg);
+  background: #222721;
+  border: 1px solid #3c433a;
+  display: grid;
+  place-items: center;
+}
+.safety-icon span {
+  color: var(--accent);
+  font-size: 42px;
+  font-weight: 900;
+  transform: rotate(-45deg);
+}
+.safety-callout small {
+  color: var(--accent);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+}
+.safety-callout h2 {
+  margin: 8px 0 0;
+  font-size: clamp(25px, 2.5vw, 37px);
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+}
+.safety-callout .button {
+  position: relative;
+  z-index: 2;
+}
+
+/* 13. FAQ
+   ========================================================================== */
+.faq {
+  display: grid;
+  grid-template-columns: 0.7fr 1.3fr;
+  gap: clamp(60px, 10vw, 150px);
+  background: #eeede7;
+  border-top: 1px solid var(--line);
+}
+.faq-intro > p {
+  color: var(--muted);
+  max-width: 310px;
+  line-height: 1.7;
+  font-size: 14px;
+  margin-top: 25px;
+}
+.faq-list {
+  border-top: 1px solid #c7cac1;
+}
+.faq-list details {
+  border-bottom: 1px solid #c7cac1;
+}
+.faq-list summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 25px 0;
+  font-size: 15px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+.faq-list summary::-webkit-details-marker {
+  display: none;
+}
+/* «+», що повертається на «×» у відкритому питанні */
+.faq-list summary span {
+  font-size: 22px;
+  font-weight: 300;
+  transition: transform 0.2s;
+}
+.faq-list details[open] summary span {
+  transform: rotate(45deg);
+}
+.faq-list details p {
+  margin: -4px 55px 25px 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* 14. Контакти та форма (Contact, Turnstile)
+   ========================================================================== */
+.contact {
+  background: #151915;
+  color: white;
+  display: grid;
+  grid-template-columns: 1fr 0.82fr;
+  gap: clamp(60px, 10vw, 150px);
+  align-items: start;
+}
+.contact-copy .section-kicker {
+  color: #8f968c;
+}
+.contact-copy > p {
+  margin: 28px 0 40px;
+  color: #92998f;
+  line-height: 1.7;
+  max-width: 480px;
+}
+.contact-details {
+  display: grid;
+  gap: 16px;
+}
+.contact-details a,
+.contact-details div {
+  display: grid;
+  gap: 5px;
+}
+.contact-details small {
+  color: #747b72;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+}
+.contact-details strong {
+  font-size: 15px;
+}
+.contact-details a:hover strong {
+  color: var(--accent);
+}
+
+.contact-form {
+  padding: 36px;
+  background: #20251f;
+  border: 1px solid #363d35;
+  display: grid;
+  gap: 20px;
+}
+.contact-form label {
+  display: grid;
+  gap: 9px;
+  color: #a9afa5;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid #485047;
+  border-radius: 0;
+  padding: 11px 0 13px;
+  background: transparent;
+  color: white;
+  outline: 0;
+  font: inherit;
+  font-size: 16px;
+  resize: vertical;
+}
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: var(--accent);
+}
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: #686f67;
+}
+.contact-form input[aria-invalid="true"],
+.contact-form textarea[aria-invalid="true"] {
+  border-color: #ff7a6b;
+}
+.contact-form .field-error {
+  color: #ff9a8e;
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0;
+}
+/* Пастка для ботів: поле приховане від людей, але лишається у формі */
+.contact-form .form-trap {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.contact-form .button {
+  border: 0;
+  cursor: pointer;
+  margin-top: 5px;
+  width: 100%;
+}
+.contact-form .button:disabled {
+  opacity: 0.65;
+  cursor: wait;
+  transform: none;
+}
+.form-error {
+  padding: 12px 14px;
+  border: 1px solid #7a3a33;
+  background: rgba(255, 122, 107, 0.08);
+  color: #ffb3aa;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.contact-form > p {
+  margin: 0;
+  text-align: center;
+  color: #697068;
+  font-size: 12px;
+  line-height: 1.5;
+}
+/* Turnstile в режимі interaction-only невидимий; компенсуємо gap сітки форми */
+.turnstile-box {
+  margin-top: -20px;
+  max-width: 100%;
+  overflow: hidden;
+}
+.turnstile-box > * {
+  margin-top: 20px;
+}
+
+.form-success {
+  min-height: 425px;
+  padding: 50px 36px;
+  background: #20251f;
+  border: 1px solid #363d35;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.form-success > span {
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--ink);
+  font-size: 28px;
+}
+.form-success h3 {
+  font-size: 27px;
+  margin: 24px 0 9px;
+}
+.form-success p {
+  color: #959b92;
+  margin: 0;
+}
+.form-success button {
+  margin-top: 25px;
+  border: 0;
+  background: transparent;
+  color: var(--accent);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* 15. Футер
+   ========================================================================== */
+footer {
+  min-height: 98px;
+  padding: 0 clamp(24px, 7vw, 110px);
+  background: #0e110e;
+  color: white;
+  border-top: 1px solid #282d27;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+}
+footer p,
+footer > span {
+  color: #737a71;
+  font-size: 13px;
+}
+footer p {
+  text-align: center;
+}
+footer > span {
+  text-align: right;
+}
+
+/* 16. Кнопка «нагору» (BackToTop; клас is-visible додає компонент)
+   ========================================================================== */
 .back-to-top {
   position: fixed;
   right: max(24px, env(safe-area-inset-right));
@@ -1155,402 +1595,30 @@ svg {
 .lightbox-open .back-to-top {
   display: none;
 }
-@media (max-width: 760px) {
-  .back-to-top {
-    right: max(16px, env(safe-area-inset-right));
-    bottom: max(16px, env(safe-area-inset-bottom));
-    width: 44px;
-    height: 44px;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .back-to-top {
-    transition: opacity 0.01s, visibility 0.01s;
-    transform: none;
-  }
-}
-.lightbox-figure {
-  animation: lightbox-in 0.32s ease both;
-}
-@keyframes lightbox-in {
-  from {
-    opacity: 0;
-    transform: translateX(calc(var(--lightbox-dir, 0) * 36px));
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-.lightbox-nav {
-  position: fixed;
-  top: 50%;
-  z-index: 2;
-  width: 52px;
-  height: 52px;
-  margin-top: -26px;
-  display: grid;
-  place-items: center;
-  border: 1px solid #4b5149;
-  border-radius: 50%;
-  background: rgba(26, 30, 26, 0.85);
-  color: white;
-  cursor: pointer;
-  transition:
-    background 0.2s,
-    border-color 0.2s,
-    color 0.2s;
-}
-.lightbox-nav:hover,
-.lightbox-nav:focus-visible {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: var(--ink);
-  outline: 0;
-}
-.lightbox-nav svg {
-  width: 20px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.8;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-.lightbox-prev {
-  left: 24px;
-}
-.lightbox-next {
-  right: 24px;
-}
-.lightbox-counter {
-  position: fixed;
-  top: 28px;
-  left: 24px;
-  color: #c9cdc5;
-  font: 11px monospace;
-  letter-spacing: 0.14em;
-}
-.lightbox-counter strong {
-  color: var(--accent);
-  font-weight: 400;
-}
-@media (prefers-reduced-motion: reduce) {
-  .lightbox-figure {
-    animation: none;
-  }
-}
-.lightbox-close {
-  position: fixed;
-  top: 18px;
-  right: 24px;
-  width: 42px;
-  height: 42px;
-  border: 1px solid #4b5149;
-  border-radius: 50%;
-  background: #1a1e1a;
-  color: white;
-  font: 300 28px/1 sans-serif;
-  cursor: pointer;
-}
 
-.safety-callout {
-  margin: 0 clamp(24px, 7vw, 110px) 110px;
-  min-height: 210px;
-  padding: 42px 52px;
-  background: #101310;
-  color: white;
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  gap: 36px;
-  position: relative;
-  overflow: hidden;
-}
-.safety-callout::after {
-  content: "";
-  position: absolute;
-  width: 330px;
-  height: 330px;
-  left: 35%;
-  top: -180px;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(217, 255, 67, 0.15),
-    transparent 65%
-  );
-}
-.safety-icon {
-  width: 80px;
-  height: 80px;
-  border-radius: 22px;
-  transform: rotate(45deg);
-  background: #222721;
-  border: 1px solid #3c433a;
-  display: grid;
-  place-items: center;
-}
-.safety-icon span {
-  color: var(--accent);
-  font-size: 42px;
-  font-weight: 900;
-  transform: rotate(-45deg);
-}
-.safety-callout small {
-  color: var(--accent);
-  font-size: 9px;
-  letter-spacing: 0.18em;
-}
-.safety-callout h2 {
-  margin: 8px 0 0;
-  font-size: clamp(25px, 2.5vw, 37px);
-  line-height: 1.12;
-  letter-spacing: -0.03em;
-}
-.safety-callout .button {
-  position: relative;
-  z-index: 2;
-}
+/* 17. Адаптивність (від широких екранів до вузьких)
+   ========================================================================== */
 
-.faq {
-  display: grid;
-  grid-template-columns: 0.7fr 1.3fr;
-  gap: clamp(60px, 10vw, 150px);
-  background: #eeede7;
-  border-top: 1px solid var(--line);
-}
-.faq-intro h2 em {
-  color: #778143;
-}
-.faq-intro > p {
-  color: var(--muted);
-  max-width: 310px;
-  line-height: 1.7;
-  font-size: 14px;
-  margin-top: 25px;
-}
-.faq-list {
-  border-top: 1px solid #c7cac1;
-}
-.faq-list details {
-  border-bottom: 1px solid #c7cac1;
-}
-.faq-list summary {
-  list-style: none;
-  cursor: pointer;
-  padding: 25px 0;
-  font-size: 15px;
-  font-weight: 600;
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-}
-.faq-list summary::-webkit-details-marker {
-  display: none;
-}
-.faq-list summary span {
-  font-size: 22px;
-  font-weight: 300;
-  transition: transform 0.2s;
-}
-.faq-list details[open] summary span {
-  transform: rotate(45deg);
-}
-.faq-list details p {
-  margin: -4px 55px 25px 0;
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.7;
-}
-
-.contact {
-  background: #151915;
-  color: white;
-  display: grid;
-  grid-template-columns: 1fr 0.82fr;
-  gap: clamp(60px, 10vw, 150px);
-  align-items: start;
-}
-.contact-copy .section-kicker {
-  color: #8f968c;
-}
-.contact-copy > p {
-  margin: 28px 0 40px;
-  color: #92998f;
-  line-height: 1.7;
-  max-width: 480px;
-}
-.contact-details {
-  display: grid;
-  gap: 16px;
-}
-.contact-details a,
-.contact-details div {
-  display: grid;
-  gap: 5px;
-}
-.contact-details small {
-  color: #747b72;
-  font-size: 8px;
-  letter-spacing: 0.16em;
-}
-.contact-details strong {
-  font-size: 13px;
-}
-.contact-details a:hover strong {
-  color: var(--accent);
-}
-.contact-form {
-  padding: 36px;
-  background: #20251f;
-  border: 1px solid #363d35;
-  display: grid;
-  gap: 20px;
-}
-.contact-form label {
-  display: grid;
-  gap: 9px;
-  color: #a9afa5;
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-.contact-form input,
-.contact-form textarea {
-  width: 100%;
-  border: 0;
-  border-bottom: 1px solid #485047;
-  border-radius: 0;
-  padding: 11px 0 13px;
-  background: transparent;
-  color: white;
-  outline: 0;
-  font: 14px inherit;
-  resize: vertical;
-}
-.contact-form input:focus,
-.contact-form textarea:focus {
-  border-color: var(--accent);
-}
-.contact-form input::placeholder,
-.contact-form textarea::placeholder {
-  color: #686f67;
-}
-.contact-form .button {
-  border: 0;
-  cursor: pointer;
-  margin-top: 5px;
-  width: 100%;
-}
-.contact-form .button svg {
-  width: 18px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.8;
-}
-.contact-form input[aria-invalid="true"],
-.contact-form textarea[aria-invalid="true"] {
-  border-color: #ff7a6b;
-}
-.contact-form .field-error {
-  color: #ff9a8e;
-  font-size: 11px;
-  font-weight: 500;
-  text-transform: none;
-  letter-spacing: 0;
-}
-.contact-form .form-trap {
-  position: absolute;
-  left: -10000px;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-}
-.contact-form .button:disabled {
-  opacity: 0.65;
-  cursor: wait;
-  transform: none;
-}
-.form-error {
-  padding: 12px 14px;
-  border: 1px solid #7a3a33;
-  background: rgba(255, 122, 107, 0.08);
-  color: #ffb3aa;
-  font-size: 12px;
-  line-height: 1.5;
-}
-.contact-form > p {
-  margin: 0;
-  text-align: center;
-  color: #697068;
-  font-size: 9px;
-  line-height: 1.5;
-}
-.form-success {
-  min-height: 425px;
-  padding: 50px 36px;
-  background: #20251f;
-  border: 1px solid #363d35;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-.form-success > span {
-  width: 64px;
-  height: 64px;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  background: var(--accent);
-  color: var(--ink);
-  font-size: 28px;
-}
-.form-success h3 {
-  font-size: 27px;
-  margin: 24px 0 9px;
-}
-.form-success p {
-  color: #959b92;
-  margin: 0;
-}
-.form-success button {
-  margin-top: 25px;
-  border: 0;
-  background: transparent;
-  color: var(--accent);
-  cursor: pointer;
-  text-decoration: underline;
-}
-
-footer {
-  min-height: 98px;
-  padding: 0 clamp(24px, 7vw, 110px);
-  background: #0e110e;
-  color: white;
-  border-top: 1px solid #282d27;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  align-items: center;
-}
-.footer .brand {
-  justify-self: start;
-}
-footer p,
-footer > span {
-  color: #737a71;
-  font-size: 10px;
-}
-footer p {
-  text-align: center;
-}
-footer > span {
-  text-align: right;
+/* Компактний дворядковий лого-блок: вміщується у висоту плашки знака,
+   тож шапка не змінює висоту, а назва не налазить на навігацію й телефон. */
+@media (max-width: 1080px) {
+  .brand-name {
+    flex-direction: column;
+    gap: 4px;
+  }
+  .brand-name span:first-child {
+    font-size: 12px;
+    letter-spacing: 0.24em;
+    color: #c7cbc3;
+  }
+  .brand-name span:last-child {
+    font-size: 16px;
+    letter-spacing: 0.14em;
+  }
 }
 
 @media (max-width: 1050px) {
+  /* Hero */
   .hero {
     grid-template-columns: 58% 42%;
   }
@@ -1558,6 +1626,8 @@ footer > span {
     transform: scale(0.82);
     transform-origin: right center;
   }
+
+  /* Послуги */
   .services-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -1567,32 +1637,66 @@ footer > span {
   .service-card:nth-child(-n + 2) {
     border-bottom: 1px solid var(--line);
   }
+
+  /* Резервне живлення */
+  .backup-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .backup-card,
+  .backup-card:nth-child(-n + 2) {
+    grid-column: span 1;
+  }
+  .backup-card:last-child {
+    grid-column: span 2;
+  }
+
+  /* Переваги */
   .benefits {
     gap: 60px;
   }
   .benefit-visual {
     min-height: 520px;
   }
+
+  /* Типи об'єктів */
   .object-types {
     grid-template-columns: repeat(2, 1fr);
   }
-  .contact {
-    gap: 70px;
-  }
+
+  /* Галерея */
   .gallery-grid {
     grid-auto-rows: 90px;
   }
+
+  /* Контакти */
+  .contact {
+    gap: 70px;
+  }
 }
+
 @media (max-width: 760px) {
+  /* Спільні елементи */
+  .section {
+    padding-top: 78px;
+    padding-bottom: 78px;
+  }
+  .section-heading {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .text-link {
+    justify-self: start;
+  }
+
+  /* Шапка */
   .site-header {
     height: 70px;
   }
   .desktop-nav {
     display: none;
   }
-  /* .header-phone span:first-child {
-    display: none;
-  } */
+
+  /* Hero */
   .hero {
     min-height: auto;
     padding-top: 125px;
@@ -1607,6 +1711,8 @@ footer > span {
   .power-visual {
     display: none;
   }
+
+  /* Смуга переваг */
   .signal-bar {
     grid-template-columns: 1fr 1fr;
     gap: 18px;
@@ -1614,14 +1720,8 @@ footer > span {
     padding-bottom: 20px;
     justify-items: start;
   }
-  .section {
-    padding-top: 78px;
-    padding-bottom: 78px;
-  }
-  .section-heading {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
+
+  /* Послуги */
   .services-grid {
     grid-template-columns: 1fr;
   }
@@ -1633,139 +1733,8 @@ footer > span {
   .service-card:last-child {
     border-bottom: 0;
   }
-  .benefits {
-    grid-template-columns: 1fr;
-  }
-  .benefit-visual {
-    /* min-height: 440px;
-    order: 2; */
-    display:none
-  }
-  .object-types {
-    grid-template-columns: 1fr;
-  }
-  .process-grid {
-    grid-template-columns: 1fr;
-    gap: 25px;
-  }
-  .process-grid::before {
-    top: 0;
-    bottom: 0;
-    left: 23px;
-    right: auto;
-    width: 1px;
-    height: auto;
-  }
-  .process-grid article {
-    min-height: 110px;
-    padding-left: 72px;
-  }
-  .process-grid article > span {
-    position: absolute;
-    left: 0;
-    top: 0;
-  }
-  .process-grid h3 {
-    margin: 0 0 9px;
-  }
-  .text-link {
-    justify-self: start;
-  }
-  .gallery-grid {
-    grid-template-columns: 1fr 1fr;
-    grid-auto-rows: 190px;
-  }
-  .gallery-item-1,
-  .gallery-item-2,
-  .gallery-item-3,
-  .gallery-item-4,
-  .gallery-item-5,
-  .gallery-item-6,
-  .gallery-item-7 {
-    grid-column: span 1;
-    grid-row: span 1;
-  }
-  .gallery-item-1 {
-    grid-column: span 2;
-    grid-row: span 2;
-  }
-  .safety-callout {
-    margin-bottom: 78px;
-    padding: 38px 30px;
-    grid-template-columns: auto 1fr;
-  }
-  .safety-callout .button {
-    grid-column: 1 / 3;
-    width: 100%;
-  }
-  .safety-icon {
-    width: 57px;
-    height: 57px;
-    border-radius: 15px;
-  }
-  .faq,
-  .contact {
-    grid-template-columns: 1fr;
-    gap: 50px;
-  }
-  footer {
-    grid-template-columns: 1fr;
-    gap: 17px;
-    padding-top: 30px;
-    padding-bottom: 30px;
-  }
-  footer p,
-  footer > span {
-    text-align: left;
-    margin: 0;
-  }
-}
-@media (max-width: 470px) {
-  .hero-actions {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .button {
-    width: 100%;
-  }
-  .signal-bar {
-    grid-template-columns: 1fr;
-  }
-  .hero-trust {
-    margin-top: 38px;
-  }
-  .section-heading h2 {
-    font-size: 40px;
-  }
-  .gallery-grid {
-    grid-template-columns: 1fr;
-    grid-auto-rows: 240px;
-  }
-  .gallery-item-1,
-  .gallery-item-2,
-  .gallery-item-3,
-  .gallery-item-4,
-  .gallery-item-5,
-  .gallery-item-6,
-  .gallery-item-7 {
-    grid-column: span 1;
-    grid-row: span 1;
-  }
-}
 
-@media (max-width: 1050px) {
-  .backup-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-  .backup-card,
-  .backup-card:nth-child(-n + 2) {
-    grid-column: span 1;
-  }
-  .backup-card:last-child {
-    grid-column: span 2;
-  }
-}
-@media (max-width: 760px) {
+  /* Резервне живлення: іконка ліворуч від тексту */
   .backup-grid {
     grid-template-columns: 1fr;
     gap: 10px;
@@ -1790,6 +1759,77 @@ footer > span {
   .backup-body .service-tags {
     margin-top: 12px;
   }
+
+  /* Переваги: «креслення» ховаємо */
+  .benefits {
+    grid-template-columns: 1fr;
+  }
+  .benefit-visual {
+    display: none;
+  }
+
+  /* Типи об'єктів */
+  .object-types {
+    grid-template-columns: 1fr;
+  }
+
+  /* Етапи: вертикальна лінія ліворуч */
+  .process-grid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+  .process-grid::before {
+    top: 0;
+    bottom: 0;
+    left: 23px;
+    right: auto;
+    width: 1px;
+    height: auto;
+  }
+  .process-grid article {
+    min-height: 110px;
+    padding-left: 72px;
+  }
+  .process-grid article > span {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  .process-grid h3 {
+    margin: 0 0 9px;
+  }
+
+  /* Галерея: два стовпці, перше фото на всю ширину */
+  .gallery-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 190px;
+  }
+  .gallery-item-2,
+  .gallery-item-3,
+  .gallery-item-4,
+  .gallery-item-5,
+  .gallery-item-6,
+  .gallery-item-7 {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+  .gallery-item-1 {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  /* Лайтбокс: стрілки внизу по центру */
+  .lightbox {
+    padding-bottom: 86px;
+  }
+  .lightbox figure {
+    max-width: 100%;
+  }
+  .lightbox figure img,
+  .lightbox figure video {
+    max-height: calc(100vh - 210px);
+    max-height: calc(100svh - 210px);
+  }
   .lightbox-nav {
     top: auto;
     bottom: 22px;
@@ -1803,24 +1843,113 @@ footer > span {
   .lightbox-next {
     right: calc(50% - 58px);
   }
-  .lightbox {
-    padding-bottom: 86px;
+
+  /* Блок безпеки */
+  .safety-callout {
+    margin-bottom: 78px;
+    padding: 38px 30px;
+    grid-template-columns: auto 1fr;
   }
-  .lightbox figure {
-    max-width: 100%;
+  .safety-callout .button {
+    grid-column: 1 / 3;
+    width: 100%;
   }
-  .lightbox figure img,
-  .lightbox figure video {
-    max-height: calc(100vh - 210px);
-    max-height: calc(100svh - 210px);
+  .safety-icon {
+    width: 57px;
+    height: 57px;
+    border-radius: 15px;
+  }
+
+  /* FAQ і контакти: одна колонка */
+  .faq,
+  .contact {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+
+  /* Футер */
+  footer {
+    grid-template-columns: 1fr;
+    gap: 17px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+  footer p,
+  footer > span {
+    text-align: left;
+    margin: 0;
+  }
+
+  /* Кнопка «нагору» */
+  .back-to-top {
+    right: max(16px, env(safe-area-inset-right));
+    bottom: max(16px, env(safe-area-inset-bottom));
+    width: 44px;
+    height: 44px;
   }
 }
-/* Turnstile в режимі interaction-only невидимий; компенсуємо gap сітки форми */
-.turnstile-box {
-  margin-top: -20px;
-  max-width: 100%;
-  overflow: hidden;
+
+@media (max-width: 470px) {
+  /* Спільні елементи */
+  .section-heading h2 {
+    font-size: 40px;
+  }
+  .button {
+    width: 100%;
+  }
+
+  /* Hero */
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .hero-trust {
+    margin-top: 38px;
+  }
+  .hero-stats p + p {
+    margin-left: 16px;
+    padding-left: 16px;
+  }
+
+  /* Смуга переваг */
+  .signal-bar {
+    grid-template-columns: 1fr;
+  }
+
+  /* Галерея: одна колонка */
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 240px;
+  }
+  .gallery-item-1 {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
 }
-.turnstile-box > * {
-  margin-top: 20px;
+
+@media (max-width: 360px) {
+  .brand {
+    gap: 9px;
+  }
+  .brand-name span:first-child {
+    letter-spacing: 0.1em;
+  }
+  .brand-name span:last-child {
+    font-size: 14px;
+    letter-spacing: 0.1em;
+  }
+}
+
+/* 18. Зменшення анімацій
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .lightbox-figure {
+    animation: none;
+  }
+  .back-to-top {
+    transition:
+      opacity 0.01s,
+      visibility 0.01s;
+    transform: none;
+  }
 }

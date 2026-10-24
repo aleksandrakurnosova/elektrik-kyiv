@@ -21,8 +21,12 @@ export const metadata = {
     follow: true,
   },
   icons: {
-    icon: "/images/logo.png",
-    apple: "/images/logo.png",
+    icon: [
+      { url: "/favicon.ico", sizes: "48x48" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/images/icon-192.png", type: "image/png", sizes: "192x192" },
+    ],
+    apple: "/images/apple-touch-icon.png",
   },
   openGraph: {
     type: "website",
@@ -36,7 +40,7 @@ export const metadata = {
         url: "/images/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Електрощит із перемикачем мережа–інвертор, змонтований електриками ВОЛЬТ",
+        alt: "Електрощит із перемикачем мережа–інвертор, змонтований електриком Максимом у Києві",
       },
     ],
   },

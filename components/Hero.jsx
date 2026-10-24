@@ -49,13 +49,22 @@ export default function Hero() {
          Л
         </span>
        </div>
-       <p>
-        <strong>
-         250+ об’єктів
-        </strong>
-        <br/>
-        успішно підключено
-       </p>
+       <div className="hero-stats">
+        <p>
+         <strong>
+          250+ об’єктів
+         </strong>
+         <br/>
+         успішно підключено
+        </p>
+        <p>
+         <strong>
+          25 років
+         </strong>
+         <br/>
+         досвіду
+        </p>
+       </div>
       </div>
      </div>
      <div aria-label="Візуалізація надійної електросистеми" className="power-visual">
